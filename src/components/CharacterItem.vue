@@ -17,26 +17,33 @@
           <span class="text-xs whitespace-nowrap first-letter:uppercase">
             Name:
           </span>
-          <span class="font-medium truncate text-violet-300 first-letter:uppercase">{{ item.name }}</span>
+          <span class="font-medium truncate text-violet-300 first-letter:uppercase">
+            {{ item.name }}
+          </span>
         </div>
         <div class="flex items-center max-w-full gap-1">
           <span class="text-xs whitespace-nowrap first-letter:uppercase">
             Status:
           </span>
-          <span class="font-medium truncate first-letter:uppercase">{{ item.status
-          }}</span>
+          <span class="font-medium truncate first-letter:uppercase">
+            {{ item.status }}
+          </span>
         </div>
         <div class="flex items-center max-w-full gap-1">
           <span class="text-xs whitespace-nowrap first-letter:uppercase">
             Species:
           </span>
-          <span class="font-medium truncate first-letter:uppercase">{{ item.species }}</span>
+          <span class="font-medium truncate first-letter:uppercase">
+            {{ item.species }}
+          </span>
         </div>
         <div class="flex items-center max-w-full gap-1">
           <span class="text-xs whitespace-nowrap first-letter:uppercase">
             Genger:
           </span>
-          <span class="font-medium truncate first-letter:uppercase">{{ item.gender }}</span>
+          <span class="font-medium truncate first-letter:uppercase">
+            {{ item.gender }}
+          </span>
         </div>
       </div>
     </div>
