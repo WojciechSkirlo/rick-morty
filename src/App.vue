@@ -25,6 +25,8 @@ function getCharacters(page = 1) {
       listCharacters.value = data.results;
       totalPages.value = data.info.pages;
       activePage.value = page;
+
+      console.log(data.info)
       window.scrollTo(0, 0);
     });
 }

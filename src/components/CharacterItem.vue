@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col border border-black">
     <div class="relative overflow-hidden h-96 group bg-slate-200 img">
-      <img :src="item.image"
-        class="object-cover w-full h-full transition-transform duration-200 group-hover:scale-105" />
+      <img :src="item.image" class="object-cover w-full h-full transition-transform duration-200 group-hover:scale-105"
+        @error="this.src = '/image_not_supported.svg'" />
       <div class="absolute left-0 flex flex-col items-start max-w-[90%] gap-2 bottom-4">
         <BaseBadge v-if="item.type" :value="item.type" :bg-color="1">type:</BaseBadge>
         <BaseBadge v-if="item.created" :value="item.created">created:</BaseBadge>

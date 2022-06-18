@@ -6,7 +6,7 @@
           :class="activePage === 1 && 'text-gray-400'" :disabled="activePage === 1"
           @click="$emit('update:activePage', activePage - 1)">left</button>
         <div class="flex items-center gap-2">
-          <div v-for="item in listPagination" :key="item">
+          <div v-for="item in computedPagination" :key="item">
             <button v-if="!isNaN(item)" class="px-3 py-1 min-w-[2rem] text-white"
               :class="item === activePage ? 'bg-violet-300' : 'bg-black'" @click="$emit('update:activePage', item)">
               {{ item }}
@@ -24,9 +24,8 @@
   </div>
 </template>
 <script setup>
-import { reactive } from "@vue/reactivity"
-import { onMounted } from "@vue/runtime-core";
-import { list } from "postcss";
+import { ref } from "@vue/reactivity"
+import { computed } from "@vue/runtime-core";
 
 defineEmits(["update:activePage"])
 
@@ -42,38 +41,34 @@ const props = defineProps({
   }
 })
 
-const paginationSize = reactive(5);
-const listPagination = reactive([]);
-
-
-function buildPagination() {
-  if (props.totalPages <= paginationSize) {
+const computedPagination = computed(() => {
+  let paginationTab = [];
+  if (props.totalPages <= 5) {
     for (let i = 1; i <= props.totalPages; i++) {
-      listPagination.push(i);
+      paginationTab.push(i);
     }
   } else {
-    if (props.activePage === 1) {
-      for (let i = 1; i <= paginationSize - 2; i++) {
-        listPagination.push(i);
-      }
-    } else if (props.activePage !== props.totalPages) {
-      for (let i = 1; i <= props.totalPages; i++) {
-        if (i % 2 == 0) {
-          listPagination.push(i - 1);
-        } else {
-          listPagination.push(i + 1);
-        }
-      }
+    if (props.activePage >= props.totalPages - 1) {
+      paginationTab.push(1);
+      paginationTab.push("...");
     }
 
-    listPagination.push("...");
-    listPagination.push(props.totalPages);
+
+    for (let i = props.activePage - 1; i <= props.activePage + 1; i++) {
+      props.activePage === props.totalPages && i === props.totalPages - 1 && paginationTab.push(i - 2);
+      i !== 0 && i !== props.totalPages + 1 && paginationTab.push(i)
+      props.activePage === 1 && i === 2 && paginationTab.push(i + 1);
+    }
+
+    if (props.activePage < props.totalPages - 1) {
+      paginationTab.push("...");
+      paginationTab.push(props.totalPages);
+    }
   }
 
-  console.log("My pagination", listPagination);
-}
+  console.log(paginationTab)
 
-onMounted(() => {
-  buildPagination();
+  return paginationTab;
 })
+
 </script>
